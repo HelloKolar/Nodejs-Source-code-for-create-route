@@ -1,0 +1,60 @@
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+let users = [
+  { id: 1, name: "Mg Mg", age: 22 },
+  { id: 2, name: "Aung Aung", age: 21 },
+  { id: 3, name: "Hla Hla", age: 20 },
+];
+
+app.get("/users", (req, res) => {
+  res.json(users);
+});
+
+app.get("/user/:id", (req, res) => {
+  let id = req.params.id;
+  let user = users.find((usr) => usr.id == id);
+  if (user) {
+    res.json(user);
+  } else {
+    res.json({ msg: "No users with that Id sir" });
+  }
+});
+
+app.post("/user", (req, res) => {
+  let id = req.body.id;
+  let name = req.body.name;
+  let age = req.body.age;
+  let newUser = {
+    id: id,
+    name: name,
+    age: age,
+  };
+  users.push(newUser);
+  res.json({ users });
+});
+
+app.patch("/user/:id", (req, res) => {
+  let id = req.params.id;
+  let editUser = users.find((usr) => usr.id == id);
+  if (editUser) {
+    editUser.name = req.body.name;
+    res.json(users);
+  } else {
+    res.json({ msg: "No user with that id" });
+  }
+});
+
+app.delete("/user/:id", (req, res) => {
+  let id = req.params.id;
+  users = users.filter((usr) => usr.id != id);
+  res.json(users);
+});
+
+app.get("*", (req, res) => {
+  res.send({ msg: "NO Route Found!" });
+});
+
+app.listen(3000, console.log("Server is running at port 3000"));
