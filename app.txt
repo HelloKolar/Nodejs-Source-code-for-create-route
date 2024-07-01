@@ -58,3 +58,9 @@ app.get("*", (req, res) => {
 });
 
 app.listen(3000, console.log("Server is running at port 3000"));
+
+App -> UserManagement -> User -> UserController -> UserDB
+App -> PostManagement -> Post -> PostController -> PostDB
+App -> RoleManagement -> Role -> RoleController -> RoleDB  
+
+MONGODB_URI=mongodb+srv://aung:admin123@cluster0.ufgwddi.mongodb.net/
